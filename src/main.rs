@@ -22,7 +22,7 @@ fn main() -> ! {
     let pins = dp.pins;
 
     // Configure Pin 0 as output
-    let mut led = pins.{pin_num}.into_output();
+    let mut led = pins.{{pin_num}}.into_output();
 
     // Set Pin 0 high
     // led.set_high().unwrap();
