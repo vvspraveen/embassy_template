@@ -1,0 +1,60 @@
+[placeholders.pin_num]
+type = "string"
+prompt = "enter the led pin number"
+default = "pin22"
+
+
+# [placeholders.target-arch]
+# type = "string"
+# prompt = "What is the target architecture?"
+# choices = [
+#     "thumbv6m-none-eabi",
+#     "thumbv7m-none-eabi",
+#     "thumbv7em-none-eabi",
+#     "thumbv7em-none-eabihf",
+#     "thumbv8m.base-none-eabi",
+#     "thumbv8m.main-none-eabi",
+#     "thumbv8m.main-none-eabihf",
+# ]
+# default = "thumbv6m-none-eabi"
+
+# [placeholders.ram-start-address]
+# type = "string"
+# prompt = "What is the target RAM start address where the flash algorithm should be placed?"
+# default = "0x0"
+
+# [placeholders.ram-size]
+# type = "string"
+# prompt = "What is the target RAM size in bytes?"
+# default = "0x0"
+
+# [placeholders.flash-start-address]
+# type = "string"
+# prompt = "What is the target Flash start address of the device the flash algorithm is for?"
+# default = "0x20000000"
+
+# [placeholders.flash-size]
+# type = "string"
+# prompt = "What is the target Flash size in bytes?"
+# default = "0x0"
+
+# [placeholders.flash-page-size]
+# type = "string"
+# prompt = "What is the target Flash page size in bytes?"
+# default = "0x400"
+
+# [placeholders.flash-sector-size]
+# type = "string"
+# prompt = "What is the target Flash sector size in bytes?"
+# default = "0x400"
+
+# [placeholders.empty-byte-value]
+# type = "string"
+# prompt = "What is the erased state of a byte in Flash?"
+# default = "0xFF"
+
+[template]
+exclude = ["README.md", "/target", "/test"]
+
+# [hooks]
+# pre = ["calculate-memory.rhai"]
