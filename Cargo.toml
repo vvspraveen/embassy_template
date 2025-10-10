@@ -1,21 +1,21 @@
 [package]
-authors = ["{{authors}}"]
+authors = ["RISCV"]
 edition = "2021"
 readme = "README.md"
-name = "{{project-name}}"
+name = "RISCV"
 version = "0.1.0"
 
 [dependencies]
 embedded-hal = "1.0.0"
 riscv = {version = "0.13.0", features = ["critical-section-single-hart"]}
 riscv-rt = "0.14.0"
-riscv-hal = { path = "../anand_prj/mindgrove_riscv_hal/riscv_hal"}
+riscv-hal = { path = "C:\Users\ugy2kor\Desktop\mindgrove_riscv_hal\mindgrove_riscv_hal-main\riscv_hal"}
 riscv-semihosting = { version = "0.1.2" }
 panic-halt = "1.0.0"
 
 # this lets you use `cargo fix`!
 [[bin]]
-name = "{{project-name}}"
+name = "RISCV"
 test = false
 bench = false
 
