@@ -1,5 +1,5 @@
 [package]
-name = "riscv-hal"
+name = "Rust_Project"
 authors = ["Imran K <immu0396@gmail.com>"]
 repository = "https://github.com/riscv_hal/mindgrove"
 categories = ["embedded", "hardware-support", "no-std"]
@@ -18,7 +18,8 @@ riscv = {version = "0.13.0", features = ["critical-section-single-hart"]}
 # riscv-rt = { git = "https://github.com/rust-embedded/riscv", branch = "rvrt-patch" }
 riscv-rt = "0.14.0"
 panic-halt = "1.0.0"
-riscv-hal = { path = "C:\Users\ugy2kor\Desktop\mindgrove_riscv_hal\mindgrove_riscv_hal-main\riscv_hal"}
+riscv-hal = { path = "C:/Users/ugy2kor/Desktop/mindgrove_test/mindgrove_riscv_hal-main (1)/mindgrove_riscv_hal-main/riscv_hal"}
+riscv-pac = { path = "C:/Users/ugy2kor/Desktop/mindgrove_test/mindgrove_riscv_hal-main (1)/mindgrove_riscv_hal-main/riscv_pac"}
 riscv-semihosting = { version = "0.1.2" }
 embedded-hal-nb = "1.0.0"
 critical-section = "1.2.0"
