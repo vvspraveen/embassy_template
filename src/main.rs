@@ -1,54 +1,44 @@
 #![no_std]
 #![no_main]
-
-use embedded_hal::digital::StatefulOutputPin;
-use panic_halt as _;
-use riscv_hal::device::DeviceResources;
-
-use riscv_rt::entry;
-use riscv_semihosting::hprintln;
-
-const DELAY_MS: u32 = 1_000;
-
-
-#[entry]
-fn main() -> ! {
-    hprintln!("Starting GPIO example");
-
-    // Take ownership of the device peripherals
-    let dp = DeviceResources::take().unwrap();
-
-    // Split GPIO pins
-    let pins = dp.pins;
-
-    // Configure Pin 0 as output
-    let mut led = pins.{{pin_num}}.into_output();
-
-    // Set Pin 0 high
-    // led.set_high().unwrap();
-
-    // Main loop: Toggle Pin 0 every second
+use embassy_executor::Spawner;
+use embassy_time::{Duration, Timer};
+use embedded_hal::digital::OutputPin;
+use riscv::register::{mie, mstatus};
+use riscv_hal::{device::DeviceResources, serial::Serial, time::Bps};
+#[embassy_executor::task]
+async fn uart_task(serial: riscv_hal::serial::Serial<riscv_pac::Uart0>) {
     loop {
-        hprintln!("in loop");
-        // delay for 1 second
-        delay_ms(DELAY_MS, DELAY_MS);
-
-        // toggle pin 0
-        match led.toggle() {
-            Ok(_) => hprintln!("Toggled pin 0"),
-            Err(_) => hprintln!("Failed to toggle pin 0"),
-        }
-        hprintln!("toggled done");
+        let _ = serial.write_str("Hello from UART task!\n");
+        Timer::after(Duration::from_millis(1)).await;
     }
 }
-
-/// Provides a delay of approximately n milliseconds
-#[inline(always)]
-fn delay_ms(outer: u32, inner: u32) {
-    for _ in 0..outer {
-        for _ in 0..inner {
-            // Compiler barrier to prevent optimization
-            core::hint::spin_loop();
-        }
+#[embassy_executor::task]
+async fn blink_led(
+    mut led: riscv_hal::gpio::gpio::Pin22<riscv_hal::gpio::Output<riscv_hal::gpio::Unknown>>,
+) {
+    loop {
+        led.set_high().unwrap();
+        Timer::after(Duration::from_millis(1)).await;
+        led.set_low().unwrap();
+        Timer::after(Duration::from_millis(1)).await;
     }
+}
+#[embassy_executor::main]
+async fn main(spawner: Spawner) {
+    riscv_hal::time_driver::init();
+    unsafe {
+        mie::set_mtimer();
+        mstatus::set_mie();
+    }
+    let dp = DeviceResources::take().unwrap();
+    let pins = dp.pins;
+    let led = pins.pin22.into_output();
+    let uart0 = unsafe { riscv_pac::Uart0::steal() };
+    let serial = Serial::new(uart0, Bps(115200));
+    spawner.must_spawn(blink_led(led));
+    spawner.must_spawn(uart_task(serial));
+}
+#[panic_handler]
+fn panic(_info: &core::panic::PanicInfo) -> ! {
+    loop {}
 }
