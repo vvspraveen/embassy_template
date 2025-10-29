@@ -18,8 +18,10 @@ riscv = {version = "0.13.0", features = ["critical-section-single-hart"]}
 # riscv-rt = { git = "https://github.com/rust-embedded/riscv", branch = "rvrt-patch" }
 riscv-rt = "0.14.0"
 panic-halt = "1.0.0"
-riscv-hal = { path = "/Users/yashwanthsingh/Downloads/mindgrove_riscv_hal-main/riscv_hal"}
-riscv-pac = { path = "/Users/yashwanthsingh/Downloads/mindgrove_riscv_hal-main/riscv_pac"}
+riscv-hal = { path = "C:/Users/ugy2kor/Desktop/mindgrove_riscv_hal_secure-main/riscv_hal"}
+#riscv-hal = { path = "/Users/yashwanthsingh/Downloads/mindgrove_riscv_hal-main/riscv_hal"}
+#riscv-pac = { path = "/Users/yashwanthsingh/Downloads/mindgrove_riscv_hal-main/riscv_pac"}
+riscv-pac = { path = "C:/Users/ugy2kor/Desktop/mindgrove_riscv_hal_secure-main/riscv_pac"}
 riscv-semihosting = { version = "0.1.2" }
 embedded-hal-nb = "1.0.0"
 critical-section = "1.2.0"
